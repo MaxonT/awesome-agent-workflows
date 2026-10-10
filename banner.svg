@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="340" viewBox="0 0 1280 340" role="img" aria-label="Awesome Agent Workflows">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a5d6ff"/><stop offset="0.6" stop-color="#58a6ff"/><stop offset="1" stop-color="#1f6feb"/></linearGradient>
+  </defs>
+  <rect width="1280" height="340" fill="url(#bg)"/>
+  <g>
+<polygon points="90.0,126.0 110.8,138.0 110.8,162.0 90.0,174.0 69.2,162.0 69.2,138.0" fill="#0a3d91"/>
+<polygon points="135.0,126.0 155.8,138.0 155.8,162.0 135.0,174.0 114.2,162.0 114.2,138.0" fill="#1f6feb"/>
+<polygon points="45.0,126.0 65.8,138.0 65.8,162.0 45.0,174.0 24.2,162.0 24.2,138.0" fill="#1158c7"/>
+<polygon points="112.5,87.0 133.3,99.0 133.3,123.0 112.5,135.0 91.7,123.0 91.7,99.0" fill="#0a3d91"/>
+<polygon points="67.5,87.0 88.3,99.0 88.3,123.0 67.5,135.0 46.7,123.0 46.7,99.0" fill="#56a2ff"/>
+<polygon points="112.5,165.0 133.3,177.0 133.3,201.0 112.5,213.0 91.7,201.0 91.7,177.0" fill="#1158c7"/>
+<polygon points="67.5,165.0 88.3,177.0 88.3,201.0 67.5,213.0 46.7,201.0 46.7,177.0" fill="#79c0ff"/>
+  </g>
+  <text x="215" y="176" font-family="'Segoe UI',system-ui,-apple-system,sans-serif" font-size="78" font-weight="800" fill="url(#word)" letter-spacing="-1">Awesome Agent Workflows</text>
+  <text x="218" y="224" font-family="'Segoe UI',system-ui,sans-serif" font-size="26" font-weight="600" fill="#c9d1d9">Well-known agent, harness and workflow projects on GitHub, ranked by stars</text>
+  <text x="218" y="266" font-family="'SF Mono',ui-monospace,monospace" font-size="20" fill="#8957e5">★ 47 entries · 2.6M stars · EN + 中文 · rebuilt daily</text>
+</svg>
