@@ -32,11 +32,11 @@
 
 | # | 项目 | ⭐ Stars | 语言 | 更新 | 简介 |
 |:-:|:--|--:|:-:|:-:|:--|
-| 1 | [**affaan-m/ECC**](https://github.com/affaan-m/ECC) | 275.5k | JavaScript | 2026-10-05 | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first de… |
+| 1 | [**affaan-m/ECC**](https://github.com/affaan-m/ECC) | 275.6k | JavaScript | 2026-10-05 | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first de… |
 | 2 | [**NousResearch/hermes-agent**](https://github.com/NousResearch/hermes-agent) | 252.1k | Python | 2026-10-09 | The agent that grows with you |
 | 3 | [**deepseek-ai/deepseek-harness**](https://github.com/deepseek-ai/deepseek-harness) | 246.0k | TypeScript | 2026-10-03 | DeepSeek Harness: Everything is a Plugin. |
 | 4 | [**langgenius/dify**](https://github.com/langgenius/dify) | 158.0k | TypeScript | 2026-10-09 | Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. D… |
-| 5 | [**langchain-ai/langchain**](https://github.com/langchain-ai/langchain) | 147.4k | Python | 2026-10-08 | The agent engineering platform. |
+| 5 | [**langchain-ai/langchain**](https://github.com/langchain-ai/langchain) | 147.4k | Python | 2026-10-09 | The agent engineering platform. |
 
 <a id="sec-1"></a>
 
@@ -45,8 +45,8 @@
 | # | 项目 | ⭐ Stars | 语言 | 更新 | 简介 |
 |:-:|:--|--:|:-:|:-:|:--|
 | 1 | [**deepseek-ai/deepseek-harness**](https://github.com/deepseek-ai/deepseek-harness) | 246.0k | TypeScript | 2026-10-03 | DeepSeek Harness: Everything is a Plugin. |
-| 2 | [**langchain-ai/langchain**](https://github.com/langchain-ai/langchain) | 147.4k | Python | 2026-10-08 | The agent engineering platform. |
-| 3 | [**browser-use/browser-use**](https://github.com/browser-use/browser-use) | 117.3k | Python | 2026-10-07 | Agents that use the browser. |
+| 2 | [**langchain-ai/langchain**](https://github.com/langchain-ai/langchain) | 147.4k | Python | 2026-10-09 | The agent engineering platform. |
+| 3 | [**browser-use/browser-use**](https://github.com/browser-use/browser-use) | 117.4k | Python | 2026-10-07 | Agents that use the browser. |
 | 4 | [**google-gemini/gemini-cli**](https://github.com/google-gemini/gemini-cli) | 107.3k | TypeScript | 2026-10-08 | An open-source AI agent that brings the power of Gemini directly into your terminal. |
 | 5 | [**bytedance/deer-flow**](https://github.com/bytedance/deer-flow) | 83.6k | Python | 2026-10-09 | An open-source long-horizon SuperAgent harness that researches, codes, and creates. With the help of sandboxe… |
 | 6 | [**microsoft/ai-agents-for-beginners**](https://github.com/microsoft/ai-agents-for-beginners) | 76.7k | Jupyter Notebook | 2026-09-19 | 18 Lessons to Get Started Building AI Agents |
@@ -71,10 +71,10 @@
 
 | # | 项目 | ⭐ Stars | 语言 | 更新 | 简介 |
 |:-:|:--|--:|:-:|:-:|:--|
-| 1 | [**affaan-m/ECC**](https://github.com/affaan-m/ECC) | 275.5k | JavaScript | 2026-10-05 | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first de… |
+| 1 | [**affaan-m/ECC**](https://github.com/affaan-m/ECC) | 275.6k | JavaScript | 2026-10-05 | The agent harness performance optimization system. Skills, instincts, memory, security, and research-first de… |
 | 2 | [**NousResearch/hermes-agent**](https://github.com/NousResearch/hermes-agent) | 252.1k | Python | 2026-10-09 | The agent that grows with you |
-| 3 | [**thedotmack/claude-mem**](https://github.com/thedotmack/claude-mem) | 98.7k | TypeScript | 2026-10-09 | Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, com… |
-| 4 | [**stablyai/orca**](https://github.com/stablyai/orca) | 88.1k | TypeScript | 2026-10-09 | Orca is the ADE for working with a fleet of parallel agents. Run any coding agent with your own subscription.… |
+| 3 | [**thedotmack/claude-mem**](https://github.com/thedotmack/claude-mem) | 98.8k | TypeScript | 2026-10-09 | Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, com… |
+| 4 | [**stablyai/orca**](https://github.com/stablyai/orca) | 88.2k | TypeScript | 2026-10-09 | Orca is the ADE for working with a fleet of parallel agents. Run any coding agent with your own subscription.… |
 | 5 | [**shareAI-lab/learn-claude-code**](https://github.com/shareAI-lab/learn-claude-code) | 78.2k | Python | 2026-09-28 | Bash is all you need - A nano claude code–like 「agent harness」, built from 0 to 1 |
 | 6 | [**openinterpreter/openinterpreter**](https://github.com/openinterpreter/openinterpreter) | 68.5k | Rust | 2026-10-07 | A coding agent for open models like Kimi K3 and GLM 5.3 |
 | 7 | [**shanraisshan/claude-code-best-practice**](https://github.com/shanraisshan/claude-code-best-practice) | 67.3k | HTML | 2026-10-09 | from vibe coding to agentic engineering - practice makes claude perfect |
@@ -88,7 +88,7 @@
 | # | 项目 | ⭐ Stars | 语言 | 更新 | 简介 |
 |:-:|:--|--:|:-:|:-:|:--|
 | 11 | [**QwenLM/qwen-code**](https://github.com/QwenLM/qwen-code) | 28.4k | TypeScript | 2026-10-09 | An open-source AI coding agent that lives in your terminal. |
-| 12 | [**OthmanAdi/planning-with-files**](https://github.com/OthmanAdi/planning-with-files) | 27.3k | Shell | 2026-10-06 | Persistent file-based planning for AI coding agents and long-running tasks. Crash-proof markdown plans, sessi… |
+| 12 | [**OthmanAdi/planning-with-files**](https://github.com/OthmanAdi/planning-with-files) | 27.4k | Shell | 2026-10-06 | Persistent file-based planning for AI coding agents and long-running tasks. Crash-proof markdown plans, sessi… |
 
 </details>
 
