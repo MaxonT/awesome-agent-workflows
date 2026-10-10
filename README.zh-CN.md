@@ -12,6 +12,8 @@
 
 [English](README.md) · **简体中文**
 
+<img src="assets/how-it-works.gif" width="100%" alt="工作原理：抓取 → 判定 → 按 Stars 排名 → 渲染双语榜单 → 自动刷新"/>
+
 </div>
 
 ---
