@@ -12,6 +12,8 @@
 
 **English** · [简体中文](README.zh-CN.md)
 
+<img src="assets/how-it-works.gif" width="100%" alt="How it works: collect -> judge -> rank by stars -> render EN + 中文 -> auto-refresh"/>
+
 </div>
 
 ---
