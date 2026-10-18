@@ -1,0 +1,838 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>这份榜单是怎么做出来的 — how it works</title>
+<style>
+  :root { color-scheme: dark; }
+  html,body { margin:0; background:#0d1117; color:#e6edf3;
+    font-family:Segoe UI,system-ui,sans-serif; }
+  .wrap { max-width:1280px; margin:0 auto; padding:16px; }
+  .stage { width:100%; aspect-ratio:1280/420; background:#0d1117;
+    border:1px solid #30363d; border-radius:12px; overflow:hidden; }
+  .fr svg { width:100%; height:100%; display:block; }
+  .bar { display:flex; align-items:center; gap:12px; margin-top:12px; }
+  button { background:#1c2531; color:#e6edf3; border:1px solid #30363d;
+    border-radius:8px; padding:8px 14px; font-size:15px; cursor:pointer; }
+  button:hover { border-color:#58a6ff; }
+  input[type=range] { flex:1; accent-color:#58a6ff; height:6px; cursor:pointer; }
+  .cap { font-size:13px; color:#8b949e; min-width:66px; text-align:right;
+    font-family:SF Mono,ui-monospace,monospace; }
+  .hint { font-size:12px; color:#6e7681; margin-top:8px; }
+</style></head>
+<body><div class="wrap">
+  <div class="stage" id="stage"><div class="fr" data-i="0" style="display:block"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="1" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="2" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  </text>
+</svg></div>
+<div class="fr" data-i="3" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub S<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="4" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="5" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+</svg></div>
+<div class="fr" data-i="6" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="7" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="8" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="9" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="10" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="11" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="12" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  →</text>
+</svg></div>
+<div class="fr" data-i="13" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="14" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="15" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+</svg></div>
+<div class="fr" data-i="16" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="17" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="18" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="19" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="20" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="21" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factor<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="22" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  </text>
+</svg></div>
+<div class="fr" data-i="23" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitH<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="24" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="25" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+</svg></div>
+<div class="fr" data-i="26" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="27" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="28" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="29" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="30" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="31" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factor<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="32" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render</text>
+</svg></div>
+<div class="fr" data-i="33" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="34" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="35" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+</svg></div>
+<div class="fr" data-i="36" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="37" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="38" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="39" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="40" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="41" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$ factor<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="42" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$ factory refresh</text>
+</svg></div>
+<div class="fr" data-i="43" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$ factory refresh  → every<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="44" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$ factory refresh  → every few days<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="45" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$ factory refresh  → every few days</text>
+</svg></div>
+<div class="fr" data-i="46" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$ factory refresh  → every few days<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="47" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$ factory refresh  → every few days<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="48" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$ factory refresh  → every few days<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div>
+<div class="fr" data-i="49" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1117"/><stop offset="1" stop-color="#0a0e14"/></linearGradient></defs>
+<rect width="1280" height="420" fill="url(#bg)"/>
+<text x="40" y="56" font-family="Segoe UI,system-ui,sans-serif" font-size="26" font-weight="800" fill="#e6edf3">这份榜单是怎么做出来的</text>
+<text x="40" y="84" font-family="SF Mono,ui-monospace,monospace" font-size="15" fill="#8b949e">从 GitHub 抓取 · 按 Stars 排名的双语榜单 · 定时自动刷新</text>
+<rect x="40" y="110" width="1200" height="280" rx="12" fill="#0b0f14" stroke="#30363d" stroke-width="1.5"/>
+<rect x="60" y="126" width="12" height="12" rx="3" fill="#f0b429"/>
+<rect x="82" y="126" width="12" height="12" rx="3" fill="#2dd4bf"/>
+<rect x="104" y="126" width="12" height="12" rx="3" fill="#2ea043"/>
+<text x="70" y="150" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#58a6ff">$ factory collect  → GitHub Search API</text>
+<text x="94" y="172" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Collect · 按主题抓取</text>
+<text x="70" y="196" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2dd4bf">$ factory judge  → relevance verdicts</text>
+<text x="94" y="218" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Judge · 相关性判定</text>
+<text x="70" y="242" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#a371f7">$ factory rank  → by GitHub stars</text>
+<text x="94" y="264" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Rank · 按 Stars 排名</text>
+<text x="70" y="288" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#f0b429">$ factory render  → list EN + 中文</text>
+<text x="94" y="310" font-family="SF Mono,monospace" font-size="14" fill="#6e7681">✓ Render · 渲染双语榜单</text>
+<text x="70" y="334" font-family="SF Mono,ui-monospace,monospace" font-size="20" fill="#2ea043">$ factory refresh  → every few days<tspan fill="#e6edf3">▌</tspan></text>
+</svg></div></div>
+  <div class="bar">
+    <button id="pp" aria-label="play / pause">⏸ Pause</button>
+    <button id="prev" aria-label="previous step">◀</button>
+    <button id="next" aria-label="next step">▶</button>
+    <input id="seek" type="range" min="0" max="49" value="0" step="1">
+    <span class="cap" id="cap">1 / 50</span>
+  </div>
+  <div class="hint">Space = play/pause · ← → = step · drag the bar to scrub</div>
+</div>
+<script>
+(function(){
+  var N=50, fps=12, i=0, playing=true, timer=null;
+  var frs=[].slice.call(document.querySelectorAll('.fr'));
+  var pp=document.getElementById('pp'), seek=document.getElementById('seek'),
+      cap=document.getElementById('cap');
+  function show(n){ i=(n%N+N)%N; frs.forEach(function(f){f.style.display='none';});
+    frs[i].style.display='block'; seek.value=i; cap.textContent=(i+1)+' / '+N; }
+  function step(){ if(playing) show(i+1); }
+  function start(){ timer=setInterval(step,1000/fps); }
+  function stop(){ clearInterval(timer); timer=null; }
+  function setPlay(p){ playing=p; pp.textContent=p?'⏸ Pause':'▶ Play';
+    if(p){ if(!timer) start(); } else { stop(); } }
+  pp.onclick=function(){ setPlay(!playing); };
+  document.getElementById('prev').onclick=function(){ setPlay(false); show(i-1); };
+  document.getElementById('next').onclick=function(){ setPlay(false); show(i+1); };
+  seek.oninput=function(){ setPlay(false); show(parseInt(seek.value,10)); };
+  document.addEventListener('keydown',function(e){
+    if(e.code==='Space'){ e.preventDefault(); setPlay(!playing); }
+    else if(e.code==='ArrowLeft'){ setPlay(false); show(i-1); }
+    else if(e.code==='ArrowRight'){ setPlay(false); show(i+1); }
+  });
+  show(0); start();
+})();
+</script>
+</body></html>
